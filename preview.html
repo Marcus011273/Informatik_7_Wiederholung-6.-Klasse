@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Informatik 7 – Wiederholung Programmieren mit Lernhilfen</title>
+<style>
+:root{
+  --bg:#f6f8fc;--card:#fff;--text:#1f2937;--muted:#64748b;
+  --blue:#2563eb;--blue2:#dbeafe;--green:#15803d;--green2:#dcfce7;
+  --red:#b91c1c;--red2:#fee2e2;--yellow:#a16207;--yellow2:#fef3c7;
+  --border:#cbd5e1;--purple:#6d28d9;--purple2:#ede9fe;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+main{max-width:1080px;margin:auto;padding:18px}
+header{background:linear-gradient(135deg,#1d4ed8,#3b82f6);color:#fff;padding:22px 24px;border-radius:18px}
+header h1{margin:0 0 8px;font-size:clamp(1.55rem,4vw,2.4rem)}
+header p{margin:0;line-height:1.45}
+.progress-wrap{margin-top:14px;background:#ffffff44;border-radius:999px;height:12px;overflow:hidden}
+#progress{height:100%;width:0;background:white;transition:.2s}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin:15px 0}
+h2{margin-top:0;color:#1d4ed8}
+.info{background:var(--blue2);border-left:5px solid var(--blue);padding:12px 14px;border-radius:10px;margin-bottom:14px}
+.help{background:var(--purple2);border-left:5px solid var(--purple);padding:12px 14px;border-radius:10px;margin:12px 0;display:none}
+.help strong{color:var(--purple)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.item,.scenario,.tf{border:1px solid var(--border);border-radius:12px;padding:12px}
+.item strong,.scenario strong{display:block;margin-bottom:8px}
+select,input[type=text]{width:100%;padding:10px;border:2px solid var(--border);border-radius:9px;background:#fff;font-size:1rem}
+.wordbank{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}
+.wordbank span{background:#e2e8f0;padding:6px 10px;border-radius:999px;font-size:.92rem}
+.sequence-row{display:grid;grid-template-columns:72px 1fr;gap:10px;align-items:center;margin:8px 0}
+.sequence-row select{max-width:72px}
+.tf label{margin-right:16px}
+.correct{border-color:var(--green)!important;background:var(--green2)!important}
+.wrong{border-color:var(--red)!important;background:var(--red2)!important}
+.warn{border-color:var(--yellow)!important;background:var(--yellow2)!important}
+.explain{margin-top:7px;font-size:.93rem;color:#334155}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button{border:0;border-radius:10px;padding:11px 16px;font-size:1rem;font-weight:700;cursor:pointer}
+.primary{background:var(--blue);color:white}.secondary{background:#e2e8f0;color:#0f172a}
+.helpbtn{background:var(--purple);color:white}
+.feedback{min-height:1.4em;margin-top:10px;font-weight:700}
+.score{background:#f8fafc;border:1px dashed #94a3b8;border-radius:10px;padding:14px;font-size:1.1rem;line-height:1.55}
+.small{font-size:.92rem;color:var(--muted)}
+@media(max-width:600px){main{padding:10px}.card{padding:14px}.sequence-row{grid-template-columns:62px 1fr}}
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <h1>🧩 Informatik 7 – Programmieren: Was weißt du noch?</h1>
+  <p>Wiederholung aus Klasse 6 • ca. 15 Minuten • mit Lernhilfen und Erklärungen</p>
+  <div class="progress-wrap"><div id="progress"></div></div>
+</header>
+
+<section class="card">
+  <h2>1. Grundbegriffe zuordnen</h2>
+  <div class="info">Ordne jedem Fachbegriff die passende Erklärung zu. Wenn du einen Begriff nicht kennst, nutze zuerst die Lernhilfe.</div>
+  <button class="helpbtn" type="button" data-help="help1">Lernhilfe anzeigen</button>
+  <div id="help1" class="help">
+    <strong>Lernhilfe:</strong><br>
+    Ein <b>Algorithmus</b> ist eine genaue Schritt-für-Schritt-Anleitung.<br>
+    Eine <b>Anweisung</b> ist ein einzelner Schritt.<br>
+    Eine <b>Sequenz</b> sind mehrere Schritte in fester Reihenfolge.<br>
+    Eine <b>Bedingung</b> prüft, ob etwas zutrifft.<br>
+    Eine <b>Alternative</b> bedeutet: Wenn etwas zutrifft, passiert A, sonst B.<br>
+    Eine <b>Wiederholung</b> führt Schritte mehrfach aus.<br>
+    Bei einer <b>Schachtelung</b> steckt eine Struktur in einer anderen.
+  </div>
+  <div class="grid" id="matching"></div>
+  <div class="actions"><button class="primary" id="check1" type="button">Prüfen</button></div>
+  <div id="fb1" class="feedback"></div>
+</section>
+
+<section class="card">
+  <h2>2. Lückentext: Algorithmische Grundstrukturen</h2>
+  <div class="info">Setze die passenden Begriffe ein. Die Wortbank hilft dir.</div>
+  <button class="helpbtn" type="button" data-help="help2">Lernhilfe anzeigen</button>
+  <div id="help2" class="help">
+    <strong>Merke:</strong> Ein Programm besteht oft aus wenigen Grundideen:
+    einzelne Schritte, feste Reihenfolgen, Entscheidungen und Wiederholungen.
+    Ein <b>Struktogramm</b> stellt solche Abläufe grafisch dar.
+  </div>
+  <div class="wordbank">
+    <span>Anweisung</span><span>Sequenz</span><span>Bedingung</span>
+    <span>Alternative</span><span>Wiederholung</span><span>Struktogramm</span>
+  </div>
+  <div class="item">
+    <p>Ein einzelner auszuführender Schritt heißt
+      <input type="text" data-answer="Anweisung" data-explain="Eine Anweisung ist ein einzelner Befehl oder Schritt."></p>
+    <p>Mehrere Anweisungen in einer festen Reihenfolge bilden eine
+      <input type="text" data-answer="Sequenz" data-explain="Eine Sequenz ist eine feste Abfolge mehrerer Anweisungen."></p>
+    <p>Eine Frage, von deren Ergebnis der weitere Ablauf abhängt, nennt man
+      <input type="text" data-answer="Bedingung" data-explain="Eine Bedingung prüft, ob etwas wahr oder falsch ist."></p>
+    <p>Wenn je nach Bedingung zwei unterschiedliche Wege möglich sind, spricht man von einer
+      <input type="text" data-answer="Alternative" data-explain="Eine Alternative bietet zwei mögliche Wege, zum Beispiel wenn/sonst."></p>
+    <p>Wenn ein Ablauf mehrfach ausgeführt wird, handelt es sich um eine
+      <input type="text" data-answer="Wiederholung" data-explain="Eine Wiederholung führt denselben Ablauf mehrfach aus."></p>
+    <p>Eine grafische Notationsform für Algorithmen ist das
+      <input type="text" data-answer="Struktogramm" data-explain="Ein Struktogramm stellt den Ablauf eines Algorithmus grafisch dar."></p>
+  </div>
+  <div class="actions"><button class="primary" id="check2" type="button">Lückentext prüfen</button></div>
+  <div id="fb2" class="feedback"></div>
+</section>
+
+<section class="card">
+  <h2>3. Was steckt im Ablauf?</h2>
+  <div class="info">Lies die Beschreibung und wähle die passende Grundstruktur.</div>
+  <button class="helpbtn" type="button" data-help="help3">Lernhilfe anzeigen</button>
+  <div id="help3" class="help">
+    <strong>So erkennst du die Strukturen:</strong><br>
+    „zuerst … dann … danach …“ → meist <b>Sequenz</b><br>
+    „wenn …“ → meist <b>Bedingung</b><br>
+    „wenn … sonst …“ → <b>Alternative</b><br>
+    „solange …“ / „wiederhole bis …“ → <b>bedingte Wiederholung</b><br>
+    Eine Bedingung in einer Wiederholung → <b>Schachtelung</b>
+  </div>
+  <div class="grid" id="scenarios"></div>
+  <div class="actions"><button class="primary" id="check3" type="button">Prüfen</button></div>
+  <div id="fb3" class="feedback"></div>
+</section>
+
+<section class="card">
+  <h2>4. Algorithmus in die richtige Reihenfolge bringen</h2>
+  <div class="info">Eine Figur soll zur Futterstelle laufen: 3 Schritte vorwärts, dann nach rechts drehen, dann 2 Schritte vorwärts. Ordne die Schritte.</div>
+  <button class="helpbtn" type="button" data-help="help4">Lernhilfe anzeigen</button>
+  <div id="help4" class="help">
+    <strong>Tipp:</strong> Ein Algorithmus ist wie ein Kochrezept: Die Reihenfolge ist wichtig.
+    Überlege, was zuerst passieren muss und was erst danach möglich ist.
+  </div>
+  <div id="sequence"></div>
+  <div class="actions"><button class="primary" id="check4" type="button">Reihenfolge prüfen</button></div>
+  <div id="fb4" class="feedback"></div>
+</section>
+
+<section class="card">
+  <h2>5. Scratch-Denken: Richtig oder falsch?</h2>
+  <div class="info">Entscheide, ob die Aussage zu einem sinnvollen Programmierablauf passt.</div>
+  <button class="helpbtn" type="button" data-help="help5">Lernhilfe anzeigen</button>
+  <div id="help5" class="help">
+    <strong>Merke:</strong> Beim Programmieren planst du Abläufe, testest sie und verbesserst Fehler.
+    Bedingungen steuern Entscheidungen, Wiederholungen sparen doppelte Arbeit.
+  </div>
+  <div id="tfwrap"></div>
+  <div class="actions"><button class="primary" id="check5" type="button">Prüfen</button></div>
+  <div id="fb5" class="feedback"></div>
+</section>
+
+<section class="card">
+  <h2>6. Fehler finden und verbessern</h2>
+  <div class="info">Programme werden getestet und optimiert. Wähle jeweils die sinnvollste Reaktion.</div>
+  <button class="helpbtn" type="button" data-help="help6">Lernhilfe anzeigen</button>
+  <div id="help6" class="help">
+    <strong>Strategie beim Fehlersuchen:</strong> Nicht alles auf einmal ändern.
+    Teste den Ablauf Schritt für Schritt. Prüfe besonders Bedingungen und Wiederholungen:
+    Können sie überhaupt enden? Wird der richtige Zweig ausgeführt?
+  </div>
+
+  <div id="debug"></div>
+
+  <div class="actions">
+    <button class="primary" id="check6" type="button">Prüfen</button>
+    <button class="secondary" id="reset" type="button">Alles neu starten</button>
+  </div>
+  <div id="fb6" class="feedback"></div>
+</section>
+
+<section class="card">
+  <h2>🏁 Deine Auswertung</h2>
+  <div id="score" class="score">Bearbeite alle sechs Übungen und prüfe jede Aufgabe.</div>
+  <p class="small">Die Lernhilfen darfst du benutzen. Ziel ist nicht nur die Punktzahl, sondern dass du die Begriffe am Ende verstehst.</p>
+</section>
+
+</main>
+
+<script>
+(function(){
+const scores=[null,null,null,null,null,null], max=[7,6,5,4,5,3];
+
+document.querySelectorAll(".helpbtn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const box=document.getElementById(btn.dataset.help);
+    const open=box.style.display==="block";
+    box.style.display=open?"none":"block";
+    btn.textContent=open?"Lernhilfe anzeigen":"Lernhilfe ausblenden";
+  });
+});
+
+const matchingData=[
+ ["Algorithmus","Ein genauer Ablauf aus einzelnen Schritten","Ein Algorithmus ist eine eindeutige Schritt-für-Schritt-Anleitung."],
+ ["Anweisung","Ein einzelner auszuführender Schritt","Eine Anweisung ist genau ein auszuführender Schritt."],
+ ["Sequenz","Mehrere Schritte in einer festen Reihenfolge","Bei einer Sequenz werden mehrere Anweisungen nacheinander ausgeführt."],
+ ["Bedingung","Eine Entscheidung, die vom Ergebnis einer Prüfung abhängt","Eine Bedingung prüft, ob etwas zutrifft."],
+ ["Alternative","Zwei mögliche Wege abhängig von einer Bedingung","Eine Alternative entspricht zum Beispiel: wenn ... sonst ..."],
+ ["Wiederholung","Ein Ablauf wird mehrfach ausgeführt","Eine Wiederholung führt Schritte mehrmals aus."],
+ ["Schachtelung","Eine Grundstruktur befindet sich innerhalb einer anderen","Bei einer Schachtelung steckt eine Struktur in einer anderen."]
+];
+const explanations=["","Ein genauer Ablauf aus einzelnen Schritten","Ein einzelner auszuführender Schritt","Mehrere Schritte in einer festen Reihenfolge","Eine Entscheidung, die vom Ergebnis einer Prüfung abhängt","Zwei mögliche Wege abhängig von einer Bedingung","Ein Ablauf wird mehrfach ausgeführt","Eine Grundstruktur befindet sich innerhalb einer anderen"];
+const matching=document.getElementById("matching");
+matchingData.forEach(([term,ans,exp])=>{
+  const d=document.createElement("div"); d.className="item";
+  const st=document.createElement("strong"); st.textContent=term;
+  const s=document.createElement("select"); s.dataset.answer=ans; s.dataset.explain=exp;
+  explanations.forEach(x=>{const o=document.createElement("option");o.value=x;o.textContent=x||"Bitte wählen …";s.appendChild(o)});
+  const e=document.createElement("div");e.className="explain";
+  d.append(st,s,e); matching.appendChild(d);
+});
+
+const scenarioData=[
+ ["Eine Figur sagt zuerst „Hallo“, geht dann 10 Schritte und dreht sich anschließend.","Sequenz","Die Schritte laufen nacheinander in fester Reihenfolge ab."],
+ ["Wenn die Figur den Rand berührt, soll sie umdrehen.","Bedingung","Es wird geprüft, ob die Figur den Rand berührt."],
+ ["Wenn Elsa Futter hat, freut sie sich, sonst ist sie traurig.","Alternative","Es gibt zwei Wege: einen für wahr und einen für falsch."],
+ ["Eine Figur soll so lange weiterlaufen, bis sie ein Ziel erreicht.","bedingte Wiederholung","Der Ablauf wird wiederholt, bis eine Bedingung erfüllt ist."],
+ ["Innerhalb einer Wiederholung wird zusätzlich eine Bedingung geprüft.","Schachtelung","Eine Struktur befindet sich innerhalb einer anderen."]
+];
+const scenarioOpts=["","Sequenz","Bedingung","Alternative","bedingte Wiederholung","Schachtelung"];
+const scenarios=document.getElementById("scenarios");
+scenarioData.forEach(([q,ans,exp])=>{
+  const d=document.createElement("div"); d.className="scenario"; d.dataset.answer=ans; d.dataset.explain=exp;
+  const st=document.createElement("strong"); st.textContent=q;
+  const s=document.createElement("select");
+  scenarioOpts.forEach(x=>{const o=document.createElement("option");o.value=x;o.textContent=x||"Bitte wählen …";s.appendChild(o)});
+  const e=document.createElement("div");e.className="explain";
+  d.append(st,s,e); scenarios.appendChild(d);
+});
+
+const seqData=[
+ [1,"3 Schritte vorwärts","Das ist der erste Schritt."],
+ [2,"Nach rechts drehen","Erst nach den 3 Schritten wird gedreht."],
+ [3,"2 Schritte vorwärts","Nach dem Drehen folgen noch 2 Schritte."],
+ [4,"Ende","Das Ende steht zuletzt."]
+];
+const mixed=[seqData[2],seqData[0],seqData[3],seqData[1]];
+const sequence=document.getElementById("sequence");
+mixed.forEach(([ans,text,exp])=>{
+  const d=document.createElement("div"); d.className="sequence-row item";
+  const s=document.createElement("select"); s.dataset.answer=String(ans); s.dataset.explain=exp;
+  s.innerHTML='<option value="">–</option>'+[1,2,3,4].map(n=>`<option value="${n}">${n}</option>`).join("");
+  const wrap=document.createElement("div");
+  const sp=document.createElement("span"); sp.textContent=text;
+  const e=document.createElement("div"); e.className="explain";
+  wrap.append(sp,e); d.append(s,wrap); sequence.appendChild(d);
+});
+
+const tfData=[
+ ["Eine Sequenz besteht aus mehreren Anweisungen in einer bestimmten Reihenfolge.",true,"Genau das beschreibt eine Sequenz."],
+ ["Eine Bedingung wird nur gebraucht, wenn ein Ablauf immer gleich ist.",false,"Eine Bedingung wird genutzt, wenn der Ablauf von einer Prüfung abhängt."],
+ ["Bei einer Alternative gibt es abhängig von einer Bedingung unterschiedliche Wege.",true,"Zum Beispiel: wenn ... dann ..., sonst ..."],
+ ["Eine bedingte Wiederholung kann davon abhängen, ob eine Bedingung noch erfüllt ist.",true,"Die Wiederholung läuft abhängig von einer Bedingung weiter oder endet."],
+ ["Beim Programmieren muss ein Programm nach dem ersten Versuch nicht mehr getestet werden.",false,"Programme werden getestet und bei Fehlern verbessert."]
+];
+const tfwrap=document.getElementById("tfwrap");
+tfData.forEach(([t,a,exp],i)=>{
+  const d=document.createElement("div"); d.className="tf"; d.dataset.answer=String(a); d.dataset.explain=exp;
+  d.innerHTML=`<p><strong>${i+1}. ${t}</strong></p>
+  <label><input type="radio" name="tf${i}" value="true"> Richtig</label>
+  <label><input type="radio" name="tf${i}" value="false"> Falsch</label>
+  <div class="explain"></div>`;
+  tfwrap.appendChild(d);
+});
+
+const debugData=[
+ ["Eine Scratch-Figur bewegt sich nicht so, wie du es geplant hast. Was ist der beste nächste Schritt?",
+  ["Das Programm löschen und neu anfangen","Den Ablauf Schritt für Schritt testen und prüfen, wo der Fehler entsteht","Einfach weitere Blöcke hinzufügen"],1,
+  "Beim Fehlersuchen hilft es, den Ablauf Schritt für Schritt zu testen."],
+ ["Eine Wiederholung endet nie, obwohl sie eigentlich stoppen soll. Was solltest du prüfen?",
+  ["Ob die Figur eine andere Farbe hat","Ob der Projektname richtig geschrieben ist","Ob die Bedingung zum Beenden jemals erfüllt werden kann"],2,
+  "Bei einer endlosen Wiederholung sollte man zuerst die Abbruchbedingung prüfen."],
+ ["Zwei Programmteile machen fast dasselbe mehrfach hintereinander. Was könnte das Programm übersichtlicher machen?",
+  ["Eine passende Wiederholung verwenden","Noch mehr gleiche Blöcke ergänzen","Alle Bedingungen entfernen"],0,
+  "Eine Wiederholung vermeidet unnötig viele gleiche Anweisungen."]
+];
+const debug=document.getElementById("debug");
+debugData.forEach(([q,opts,c,exp],i)=>{
+  const d=document.createElement("div");d.className="scenario";d.dataset.answer=String(c);d.dataset.explain=exp;
+  const st=document.createElement("strong");st.textContent=(i+1)+". "+q;
+  const s=document.createElement("select");
+  s.innerHTML='<option value="">Bitte wählen …</option>'+opts.map((x,j)=>`<option value="${j}">${x}</option>`).join("");
+  const e=document.createElement("div");e.className="explain";
+  d.append(st,s,e);debug.appendChild(d);
+});
+
+function norm(v){return v.trim().toLowerCase().replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/ß/g,"ss")}
+function update(){
+ const done=scores.filter(v=>v!==null).length;
+ document.getElementById("progress").style.width=(done/6*100)+"%";
+ const box=document.getElementById("score");
+ if(done<6){box.innerHTML=`Fortschritt: <b>${done} von 6 Übungen</b> abgeschlossen.`;return}
+ const pts=scores.reduce((a,b)=>a+b,0), total=max.reduce((a,b)=>a+b,0), pct=Math.round(pts/total*100);
+ let msg=pct>=90?"🌟 Sehr stark – die Programmiergrundlagen sitzen!"
+ :pct>=75?"👍 Gut – nur wenige Begriffe solltest du noch einmal ansehen."
+ :pct>=60?"🙂 Solide Grundlage – lies die Erklärungen bei den roten Stellen."
+ :"💪 Nutze die Lernhilfen und probiere die Aufgaben danach noch einmal.";
+ box.innerHTML=`Du hast <b>${pts} von ${total} Punkten</b> (${pct} %) erreicht.<br>${msg}`;
+}
+
+document.getElementById("check1").onclick=()=>{
+ let c=0;
+ [...matching.querySelectorAll(".item")].forEach(d=>{
+   const s=d.querySelector("select"),e=d.querySelector(".explain");
+   s.classList.remove("correct","wrong");
+   if(s.value===s.dataset.answer){c++;s.classList.add("correct");e.textContent="✓ "+s.dataset.explain}
+   else {s.classList.add("wrong");e.textContent="Tipp: "+s.dataset.explain}
+ });
+ scores[0]=c;document.getElementById("fb1").textContent=`${c} von 7 richtig.`;update()
+};
+
+document.getElementById("check2").onclick=()=>{
+ let c=0;
+ document.querySelectorAll('input[type=text]').forEach(i=>{
+   i.classList.remove("correct","wrong");
+   let note=i.nextElementSibling;
+   if(!note || !note.classList.contains("explain")){
+      note=document.createElement("div");note.className="explain";i.insertAdjacentElement("afterend",note);
+   }
+   if(norm(i.value)===norm(i.dataset.answer)){c++;i.classList.add("correct");note.textContent="✓ "+i.dataset.explain}
+   else {i.classList.add("wrong");note.textContent="Lösungshinweis: "+i.dataset.explain}
+ });
+ scores[1]=c;document.getElementById("fb2").textContent=`${c} von 6 Lücken richtig.`;update()
+};
+
+document.getElementById("check3").onclick=()=>{
+ let c=0;
+ [...scenarios.children].forEach(d=>{
+   const s=d.querySelector("select"),e=d.querySelector(".explain");
+   s.classList.remove("correct","wrong");
+   if(s.value===d.dataset.answer){c++;s.classList.add("correct");e.textContent="✓ "+d.dataset.explain}
+   else {s.classList.add("wrong");e.textContent="Hinweis: "+d.dataset.explain}
+ });
+ scores[2]=c;document.getElementById("fb3").textContent=`${c} von 5 richtig.`;update()
+};
+
+document.getElementById("check4").onclick=()=>{
+ let c=0;
+ [...sequence.querySelectorAll(".item")].forEach(d=>{
+   const s=d.querySelector("select"),e=d.querySelector(".explain");
+   s.classList.remove("correct","wrong");
+   if(s.value===s.dataset.answer){c++;s.classList.add("correct");e.textContent="✓ "+s.dataset.explain}
+   else {s.classList.add("wrong");e.textContent="Hinweis: "+s.dataset.explain}
+ });
+ scores[3]=c;document.getElementById("fb4").textContent=`${c} von 4 Schritten richtig.`;update()
+};
+
+document.getElementById("check5").onclick=()=>{
+ let c=0,u=0;
+ [...tfwrap.children].forEach((d,i)=>{
+   d.classList.remove("correct","wrong","warn");
+   const r=d.querySelector(`input[name=tf${i}]:checked`),e=d.querySelector(".explain");
+   if(!r){u++;d.classList.add("warn");e.textContent="Bitte wähle Richtig oder Falsch."}
+   else if(r.value===d.dataset.answer){c++;d.classList.add("correct");e.textContent="✓ "+d.dataset.explain}
+   else {d.classList.add("wrong");e.textContent="Hinweis: "+d.dataset.explain}
+ });
+ if(u){document.getElementById("fb5").textContent=`Bitte beantworte noch ${u} Aussage(n).`;return}
+ scores[4]=c;document.getElementById("fb5").textContent=`${c} von 5 richtig.`;update()
+};
+
+document.getElementById("check6").onclick=()=>{
+ let c=0;
+ [...debug.children].forEach(d=>{
+   const s=d.querySelector("select"),e=d.querySelector(".explain");
+   s.classList.remove("correct","wrong");
+   if(s.value===d.dataset.answer){c++;s.classList.add("correct");e.textContent="✓ "+d.dataset.explain}
+   else {s.classList.add("wrong");e.textContent="Hinweis: "+d.dataset.explain}
+ });
+ scores[5]=c;document.getElementById("fb6").textContent=`${c} von 3 richtig.`;update()
+};
+
+document.getElementById("reset").onclick=()=>{
+ document.querySelectorAll("select").forEach(s=>{s.value="";s.classList.remove("correct","wrong","warn")});
+ document.querySelectorAll('input[type=text]').forEach(i=>{i.value="";i.classList.remove("correct","wrong")});
+ document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+ document.querySelectorAll(".tf,.scenario").forEach(d=>d.classList.remove("correct","wrong","warn"));
+ document.querySelectorAll(".explain").forEach(e=>e.textContent="");
+ for(let i=0;i<scores.length;i++)scores[i]=null;
+ ["fb1","fb2","fb3","fb4","fb5","fb6"].forEach(id=>document.getElementById(id).textContent="");
+ update();window.scrollTo({top:0,behavior:"smooth"});
+};
+update();
+})();
+</script>
+</body>
+</html>
